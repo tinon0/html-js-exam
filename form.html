@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primer Parcial</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+</head>
+
+<body>
+    <div class="container mt-5" style="color: blueviolet;">
+        <h1>Shipping Details</h1>
+        <form class="row g-3" id="form">
+            <div class="col-md-6">
+                <label class="form-label">First Name</label>
+                <input type="text" id="firstName"  class="form-control" placeholder="First Name">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+            </div>
+            <div class="col-12">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" id="mail" name="mail"  placeholder="Email Address">
+            </div>
+            <div class="col-12">
+                <label class="form-label">Address Line 1</label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="Address Line 1">
+            </div>
+            <div class="col-md-6">
+                <label  class="form-label">Country</label>
+                <input type="text" class="form-control" id="country" name="country" placeholder="Country">
+            </div>
+            <div class="col-md-6">
+                <label  class="form-label">Country/Region</label>
+                <input type="text" class="form-control" id="region" name="region" placeholder="Country/Region">
+            </div>
+            <div class="col-md-6">
+                <label  class="form-label">City</label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="City">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Zip/Postal</label>
+                <input type="number" class="form-control" id="zip" name="zip" placeholder="Zip/Postal">
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary" style="color: blueviolet;">Confirm Details</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $("#form").validate({
+                rules:{
+                    firstName:{
+                        required: true
+                    },
+                    lastName:{
+                        required: true
+                    },
+                    mail:{
+                        required: true
+                    },
+                    address:{
+                        required: true,
+                        minlength: 3,
+                        maxlength: 15
+                    },
+                    country:{
+                        required: true,
+                        minlength: 3,
+                        maxlength: 15
+                    },
+                    region:{
+                        required: true,
+                        minlength: 3,
+                        maxlength: 15
+                    },
+                    city:{
+                        required: true,
+                        minlength: 3,
+                        maxlength: 15
+                    },
+                    zip:{
+                        required: true,
+                        min: 4
+                    }
+                },
+                messages:{
+                    firstName:{
+                        required: "Escribir Nombre"
+                    },
+                    lastName:{
+                        required: "Escribir Apellido"
+                    },
+                    mail:{
+                        required: "Escribir Correo"
+                    },
+                    address:{
+                        required: "Ingresar Direccion",
+                        minlength: "Muy corto",
+                        maxlength: "Muy largo"
+                    },
+                    country:{
+                        required: "Ingresar Pais",
+                        minlength: "Muy corto",
+                        maxlength: "Muy largo"
+                    },
+                    region:{
+                        required: "Ingresar Region",
+                        minlength: "Muy corto",
+                        maxlength: "Muy largo"
+                    },
+                    city:{
+                        required: "Ingresar Ciudad",
+                        minlength: "Muy corto",
+                        maxlength: "Muy largo"
+                    },
+                    zip:{
+                        required: "Falta el Zip",
+                        min: "Muy Corto"
+                    }
+                },
+                erroClass: "text-danger",
+                submitHandler : function(form){
+                    let nombre = getParameters("firstName")
+                    let apellido = getParameters("lastName")
+                    alert("Enviado exitosamente "+ nombre + " " + apellido)
+                }
+            })
+        })
+
+        function getParameters(param) {
+            let url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')
+            for (let i = 0; i < url.length; i++) {
+                var urlParam = url[i].split('=')
+                if (urlParam[0] == param) {
+                    return urlParam[1]
+                }
+            }
+        }
+        document.getElementById("firstName").value = getParameters("firstName")
+        document.getElementById("lastName").value = getParameters("lastName")
+    </script>
+</body>
+
+</html>
